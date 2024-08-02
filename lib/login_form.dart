@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'menu_form.dart';
+import 'package:masiasl_examen/inicio_form.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -77,11 +77,11 @@ class _LoginFormState extends State<LoginForm> {
                       Navigator.push(
                         context,
                          MaterialPageRoute(
-                          builder: (context) => MenuFormPage())
+                          builder: (context) => HomeFormPage())
                           );
                   }else{
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Contrase;a incorrecta'))
+                      SnackBar(content: Text('Contraseña incorrecta'))
                     );
                   }
                   } else {

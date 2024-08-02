@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'login_form.dart';
+import 'package:masiasl_examen/inicio_comp.dart';
+
 
 void main (){
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget{
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,
       ),
-      home: LoginForm(),
+      home: CompanyPage(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'database_cuarto.dart';
+import 'menu_form.dart';
 
 class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
@@ -45,15 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Clientes", style: TextStyle(color: Colors.amberAccent),),
-        backgroundColor: Color.fromARGB(255, 128, 125, 125),
-        leading: IconButton(onPressed:(){
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back)),
-        actions: [
-          IconButton(onPressed:() => {}, icon: Icon(Icons.search)),
-          IconButton(onPressed:() => {}, icon: Icon(Icons.more_vert))
-        ],
+        backgroundColor: Color.fromARGB(255, 128, 125, 125),  
       ),
+      drawer: MenuDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

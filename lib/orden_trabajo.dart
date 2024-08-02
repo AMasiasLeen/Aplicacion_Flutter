@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'menu_form.dart';
 
 class OrderPage extends StatefulWidget {
   _OrderPageState createState() => _OrderPageState();
@@ -24,16 +24,10 @@ class _OrderPageState extends State<OrderPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Oden de Trabajo", style: TextStyle(color: Colors.amberAccent),),
-        backgroundColor: Color.fromARGB(255, 128, 125, 125),
-        leading: IconButton(onPressed:(){
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back)),
-        actions: [
-          IconButton(onPressed:() => {}, icon: Icon(Icons.search)),
-          IconButton(onPressed:() => {}, icon: Icon(Icons.more_vert))
-        ],
+        title: Text("Orden de Trabajo", style: TextStyle(color: Colors.amberAccent),),
+        backgroundColor: Color.fromARGB(255, 128, 125, 125),  
       ),
+      drawer: MenuDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(

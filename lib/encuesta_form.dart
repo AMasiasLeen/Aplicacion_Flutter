@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'menu_form.dart';
 
 class SurveyPage extends StatefulWidget {
   _SurveyPageState createState() => _SurveyPageState();
@@ -20,15 +20,9 @@ class _SurveyPageState extends State<SurveyPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Encuesta", style: TextStyle(color: Colors.amberAccent),),
-        backgroundColor: Color.fromARGB(255, 128, 125, 125),
-        leading: IconButton(onPressed:(){
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back)),
-        actions: [
-          IconButton(onPressed:() => {}, icon: Icon(Icons.search)),
-          IconButton(onPressed:() => {}, icon: Icon(Icons.more_vert))
-        ],
+        backgroundColor: Color.fromARGB(255, 128, 125, 125),  
       ),
+      drawer: MenuDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
