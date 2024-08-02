@@ -22,4 +22,9 @@ flutter:
   assets:
     - assets/login.png
     - assets/OIP.jpg
+    - assets/crm.png
+    - assets/gestor.jpg
+    - assets/Software.jpg
+    - assets/formulario.jpg
+
   uses-material-design: true
