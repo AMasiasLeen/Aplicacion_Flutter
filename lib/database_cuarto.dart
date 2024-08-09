@@ -30,7 +30,7 @@ class DatabaseCuarto{
         apellido TEXT,
         nombre TEXT,
         correo TEXT,
-        telefono TEXT,
+        telefono TEXT
 
       )''');
   }
@@ -45,5 +45,11 @@ class DatabaseCuarto{
 
     }
   }
+
+  Future<List<Map<String, dynamic>>> getAllClients() async {
+  Database db = await database;
+  return await db.query('cliente');
+}
+
 }
 

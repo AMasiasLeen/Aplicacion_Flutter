@@ -1,52 +1,59 @@
 import 'package:flutter/material.dart';
 import 'database_cuarto.dart';
 import 'menu_form.dart';
+import 'cliente_list.dart';
 
 class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _formkey =GlobalKey<FormState>();
+  final _formkey = GlobalKey<FormState>();
   final _apellidoController = TextEditingController();
   final _nombreController = TextEditingController();
   final _correoController = TextEditingController();
   final _telefonoController = TextEditingController();
-  
-  String? _sexo;
-  String? _estadocivil;
 
   late DatabaseCuarto _databaseCuarto;
-  
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _databaseCuarto = DatabaseCuarto();
   }
 
-  void _addClient() async{
-    if(_formkey.currentState!.validate()){
+  void _addClient() async {
+    if (_formkey.currentState!.validate()) {
       Map<String, dynamic> client = {
         'apellido': _apellidoController.text,
         'nombre': _nombreController.text,
         'correo': _correoController.text,
         'telefono': _telefonoController.text
-
       };
       await _databaseCuarto.insertClient(client);
-      Navigator.pop(context, true);
-      
+      // Limpiar los campos después de registrar un cliente
+      _apellidoController.clear();
+      _nombreController.clear();
+      _correoController.clear();
+      _telefonoController.clear();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Cliente registrado exitosamente')));
     }
+  }
 
+  void _viewClients() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ClientesListPage()),
+    );
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Clientes", style: TextStyle(color: Colors.amberAccent),),
-        backgroundColor: Color.fromARGB(255, 128, 125, 125),  
+        title: Text("Clientes", style: TextStyle(color: Colors.amberAccent)),
+        backgroundColor: Color.fromARGB(255, 128, 125, 125),
       ),
       drawer: MenuDrawer(),
       body: Padding(
@@ -59,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: _apellidoController,
                 decoration: InputDecoration(
                   labelText: 'Apellidos Completos',
-                  prefixIcon: Icon(Icons.person_outline)
+                  prefixIcon: Icon(Icons.person_outline),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -72,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: _nombreController,
                 decoration: InputDecoration(
                   labelText: 'Nombres Completos',
-                  prefixIcon: Icon(Icons.person_outline)
+                  prefixIcon: Icon(Icons.person_outline),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -85,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: _correoController,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  prefixIcon: Icon(Icons.email_outlined)
+                  prefixIcon: Icon(Icons.email_outlined),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -98,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: _telefonoController,
                 decoration: InputDecoration(
                   labelText: 'Telefono',
-                  prefixIcon: Icon(Icons.phone)
+                  prefixIcon: Icon(Icons.phone),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -107,72 +114,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   return null;
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text('Sexo: '),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _addClient,
+                child: Text('Enviar'),
               ),
-              RadioListTile<String>(
-                title: const Text('Masculino'),
-                value: 'Masculino',
-                groupValue: _sexo,
-                onChanged: (String? value){
-                  setState(() {
-                    _sexo = value;
-                  });
-                },
-                secondary: Icon(Icons.male_outlined),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _viewClients,
+                child: Text('Ver registros'),
               ),
-              RadioListTile<String>(
-                title: const Text('Femenino'),
-                value: 'Femenino',
-                groupValue: _sexo,
-                onChanged: (String? value){
-                  setState(() {
-                    _sexo = value;
-                  });
-                },
-                secondary: Icon(Icons.female_outlined),
-              ),
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  labelText: 'Estado Civil',
-                  prefixIcon: Icon(Icons.family_restroom_outlined)
-                ),
-                value: _estadocivil,
-                onChanged: (String? newValue){
-                  setState(() {
-                    _estadocivil = newValue;
-                  });
-                },
-                items: <String>[
-                  'Casado',
-                  'Soltero',
-                  'Viudo',
-                  'Divorciado'
-                ].map<DropdownMenuItem<String>>
-                    ((String value){
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                      );
-                  } ).toList(),
-                  validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Campo Obligatorio*';
-                  }
-                  return null;
-                },
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _addClient,
-                  child: Text('Enviar'),
-                )
             ],
-
-          ), 
           ),
-      )
+        ),
+      ),
     );
   }
 }
